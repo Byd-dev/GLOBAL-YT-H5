@@ -66,10 +66,8 @@ public class MiitHelper implements IIdentifierListener {
         String oaid=_supplier.getOAID();
         String vaid=_supplier.getVAID();
         String aaid=_supplier.getAAID();
-        String udid=_supplier.getUDID();
         StringBuilder builder=new StringBuilder();
         builder.append("support: ").append(isSupport?"true":"false").append("\n");
-        builder.append("UDID: ").append(udid).append("\n");
         builder.append("OAID: ").append(oaid).append("\n");
         builder.append("VAID: ").append(vaid).append("\n");
         builder.append("AAID: ").append(aaid).append("\n");

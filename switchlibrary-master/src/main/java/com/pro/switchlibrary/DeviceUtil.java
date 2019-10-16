@@ -67,9 +67,13 @@ import static com.pro.switchlibrary.AppConfig.MY_PERMISSION_REQUEST_CODE;
 public class DeviceUtil implements IIdentifierListener {
 
 
+    private static final int MY_PERMISSION_REQUEST_CODE = 10000;
+
+    //检测MIUI
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
+
     static Handler handler;
     //private LocationClient locationClient;
 
@@ -104,6 +108,8 @@ public class DeviceUtil implements IIdentifierListener {
         }
         return true;
     }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -435,7 +441,13 @@ public class DeviceUtil implements IIdentifierListener {
         return versionCode;
     }
 
-    public static boolean isMIUI() {
+    /**
+     * 检查手机是否是miui系统
+     *
+     * @return
+     */
+
+    /*public static boolean isMIUI() {
         String device = Build.MANUFACTURER;
         System.out.println("Build.MANUFACTURER = " + device);
         if (device.equals("Xiaomi")) {
@@ -453,14 +465,24 @@ public class DeviceUtil implements IIdentifierListener {
         } else {
             return false;
         }
+    }*/
+
+    public static boolean isMIUI() {
+        String manufacturer = Build.MANUFACTURER;
+        //这个字符串可以自己定义,例如判断华为就填写huawei,魅族就填写meizu
+        if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+            return true;
+        }
+        return false;
     }
+
 
 
     public static AlertDialog openMiuiAppDetDialog = null;
 
     public static void openMiuiAppDetails(final Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage(activity.getString(R.string.app_name) + "需要访问 \"设备信息\"、\"相册\"、\"定位\" 和 \"外部存储器\",请到 \"应用信息 -> 权限\" 中授予！");
+        builder.setMessage(activity.getString(R.string.app_name) + "需要访问 \"设备信息\"、\"相册\"、\"地理位置\" 和 \"外部存储器\",请到 \"应用信息 -> 权限\" 中授予！");
         builder.setPositiveButton("手动授权", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -1115,10 +1137,8 @@ public class DeviceUtil implements IIdentifierListener {
         String oaid = _supplier.getOAID();
         String vaid = _supplier.getVAID();
         String aaid = _supplier.getAAID();
-        String udid = _supplier.getUDID();
         StringBuilder builder = new StringBuilder();
         builder.append("support: ").append(isSupport ? "true" : "false").append("\n");
-        builder.append("UDID: ").append(udid).append("\n");
         builder.append("OAID: ").append(oaid).append("\n");
         builder.append("VAID: ").append(vaid).append("\n");
         builder.append("AAID: ").append(aaid).append("\n");
