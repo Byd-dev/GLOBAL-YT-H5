@@ -20,7 +20,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.pro.switchlibrary.DeviceUtil;
 import com.pro.switchlibrary.DoGet;
 import com.pro.switchlibrary.JumpPermissionManagement;
 import com.pro.switchlibrary.OnResultBack;
@@ -55,22 +54,24 @@ public class SplashActivity extends Activity implements OnResultBack {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-         //initPermission();
+        initPermission();
 
-        SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
+        /*SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
         SplashActivity splashActivity = new SplashActivity(new DoGet(), SplashActivity.this);
 
-        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);
+        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);*/
 
 
     }
 
 
     private void init() {
+
         SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
+
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
@@ -100,7 +101,6 @@ public class SplashActivity extends Activity implements OnResultBack {
     public void initPermission() {
 //        判断是否是6.0以上的系统
         if (Build.VERSION.SDK_INT >= 23) {
-            //
             if (isAllGranted()) {
                 if (isMIUI()) {
                     if (!initMiuiPermission()) {
@@ -108,23 +108,19 @@ public class SplashActivity extends Activity implements OnResultBack {
                         return;
                     }
                 }
-
-
                 init();
                 return;
             } else {
-
-
                 // 一次请求多个权限, 如果其他有权限是已经授予的将会自动忽略掉
                 ActivityCompat.requestPermissions(
                         this,
                         new String[]{
-                                Manifest.permission.READ_PHONE_STATE,
+                                /*Manifest.permission.READ_PHONE_STATE,*/
                                 Manifest.permission.ACCESS_COARSE_LOCATION,
                                 Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                /* Manifest.permission.CAMERA,
+                                 Manifest.permission.READ_EXTERNAL_STORAGE,
+                                 Manifest.permission.WRITE_EXTERNAL_STORAGE*/
                         },
                         MY_PERMISSION_REQUEST_CODE
                 );
@@ -134,6 +130,7 @@ public class SplashActivity extends Activity implements OnResultBack {
             init();
         }
     }
+
     public static boolean isMIUI() {
         String manufacturer = Build.MANUFACTURER;
         //这个字符串可以自己定义,例如判断华为就填写huawei,魅族就填写meizu
@@ -148,12 +145,12 @@ public class SplashActivity extends Activity implements OnResultBack {
 
         boolean isAllGranted = checkPermissionAllGranted(
                 new String[]{
-                        Manifest.permission.READ_PHONE_STATE,
+                        /*Manifest.permission.READ_PHONE_STATE,*/
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        /* Manifest.permission.CAMERA,
+                         Manifest.permission.READ_EXTERNAL_STORAGE,
+                         Manifest.permission.WRITE_EXTERNAL_STORAGE*/
                 }
         );
 
@@ -208,7 +205,8 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     private void openMiuiAppDetails() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(com.pro.switchlibrary.R.string.app_name) + "需要访问 \"设备信息\"、\"相册\"、\"定位\" 和 \"外部存储器\",请到 \"应用信息 -> 权限\" 中授予！");
+        builder.setMessage(getString(R.string.app_name) + getString(R.string.all_permission_required));
+
         builder.setPositiveButton("手动授权", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -248,7 +246,8 @@ public class SplashActivity extends Activity implements OnResultBack {
                 init();
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
-                openAppDetails();
+                init();
+               // openAppDetails();
             }
         }
     }
@@ -286,4 +285,6 @@ public class SplashActivity extends Activity implements OnResultBack {
         if (null != openAppDetDialog && !openAppDetDialog.isShowing())
             openAppDetDialog.show();
     }
+
+
 }

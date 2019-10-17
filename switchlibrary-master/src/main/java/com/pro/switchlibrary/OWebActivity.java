@@ -155,7 +155,7 @@ public class OWebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
 
-        if (Build.VERSION.SDK_INT >= 23) {
+       /* if (Build.VERSION.SDK_INT >= 23) {
             if (DeviceUtil.isMIUI()) {
                 if (!initMiuiPermission()) {
                     openMiuiAppDetails();
@@ -175,7 +175,7 @@ public class OWebActivity extends BaseActivity {
 
         } else {
             getLocation(this);
-        }
+        }*/
         //initPermission();
 
 

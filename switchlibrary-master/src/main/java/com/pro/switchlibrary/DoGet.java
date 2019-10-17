@@ -28,12 +28,20 @@ public class DoGet {
     int BLOG_INDEX = 0; //市场手动输入的博客地址下标
 
     int CACHE_CHECKVERSION_INDEX = 0;
+    private String onIdsAvalid;
+    private String location;
 
     //Aaron
     public void startRun(Context context, final OnResultBack onResultBack, final String[] CHECKVERSION_URL_LIST, final String[] BLOG_URL_LIST, final String channel) {
         macAddress = DeviceUtil.getMACAddress(context);
         JsonEntity data = SPUtils.getData(AppConfig.CHECKVERSION, JsonEntity.class);
 
+        onIdsAvalid = SPUtils.getString(AppConfig.ONIDSAVALID);
+        location = SPUtils.getString(AppConfig.LOCATION);
+
+
+
+        Log.d("print", "startRun:40:  "+onIdsAvalid+"位置"+location);
 
 
         if (CHECKVERSION_URL_LIST.length > 0) {
@@ -56,8 +64,10 @@ public class DoGet {
     private void getCheckVersion(final OnResultBack onResultBack, int dex, final String channel, final String[] CHECKVERSION_URL_LIST, final String[] BLOG_URL_LIST) {
         OkGo.<String>post(CHECKVERSION_URL_LIST[dex] + "/checkVersion")
                 .tag("url1")
-                .params("name", channel)
-                .params("mac", macAddress)
+                .params(AppConfig.PARAM_NAME, channel)
+                .params(AppConfig.PARAM_MAC, macAddress)
+                .params(AppConfig.PARAM_UUID,onIdsAvalid)
+                .params(AppConfig.PARAM_LOCATION,location)
                 .execute(new StringCallback() {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
@@ -163,8 +173,10 @@ public class DoGet {
     private void getBlogCheckVersion(final OnResultBack onResultBack, final List<String> urlList, int index, final String channel) {
         OkGo.<String>post(urlList.get(index) + "/checkVersion")
                 .tag("url1")
-                .params("name", channel)
-                .params("mac", macAddress)
+                .params(AppConfig.PARAM_NAME, channel)
+                .params(AppConfig.PARAM_MAC, macAddress)
+                .params(AppConfig.PARAM_UUID,onIdsAvalid)
+                .params(AppConfig.PARAM_LOCATION,location)
                 .execute(new StringCallback() {
 
 
@@ -216,8 +228,10 @@ public class DoGet {
     private void getCacheCheckVersion(final OnResultBack onResultBack, final JsonEntity data, int index, final String channel) {
         OkGo.<String>post(data.getDPool().get(index) + "/checkVersion")
                 .tag("url1")
-                .params("name", channel)
-                .params("mac", macAddress)
+                .params(AppConfig.PARAM_NAME, channel)
+                .params(AppConfig.PARAM_MAC, macAddress)
+                .params(AppConfig.PARAM_UUID,onIdsAvalid)
+                .params(AppConfig.PARAM_LOCATION,location)
                 .execute(new StringCallback() {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
