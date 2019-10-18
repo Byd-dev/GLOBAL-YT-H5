@@ -383,7 +383,7 @@ public class OWebActivity extends BaseActivity {
                 //getFeatureName 街道
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("(latitude:").append(latitude).append(",").append("longitude:").append(longitude).append(")");
+                stringBuilder.append("'"+latitude).append(",").append(longitude).append("'");
                 String s = stringBuilder.toString();
                 SPUtils.putString(AppConfig.LOCATION, s);
                 Log.d("print", "onCreate:117:   " + latitude + "   " + longitude);
@@ -475,6 +475,10 @@ public class OWebActivity extends BaseActivity {
 
     private void initViews() {
 
+
+       /* Toast.makeText(this, "UUID:" + SPUtils.getString(AppConfig.ONIDSAVALID)
+                + "位置:" + SPUtils.getString(AppConfig.LOCATION)
+                + "MAC:" + DeviceUtil.getMACAddress(), Toast.LENGTH_SHORT).show();*/
 
         text_err.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -930,6 +934,7 @@ public class OWebActivity extends BaseActivity {
         }
         return result;
     }
+
     //old
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

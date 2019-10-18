@@ -34,6 +34,7 @@ import static com.pro.switchlibrary.AppConfig.MY_PERMISSION_REQUEST_CODE;
 public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
 
     private static SwitchMainEnter instance;
+    private Activity activity;
 
 
     public static SwitchMainEnter getInstance() {
@@ -46,10 +47,12 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
     }
 
     public void initOCR(Activity context, String AK, String SK) {
+        this.activity=context;
         SPUtils.init(context);
         JLibrary.InitEntry(context);
 
         getLocation(context);
+
         //初始化设备
         int i = new DeviceUtil(this).DirectCall(context);
         if (i == 0) {
@@ -107,10 +110,16 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
     }
 
     @Override
-    public void getOaid(String oaid) {
-        SPUtils.putString(AppConfig.ONIDSAVALID, oaid);
-
+    public void getOaid(boolean isSupport,String oaid) {
+        Log.d("print", "getOaid:115:  "+isSupport);
+        if (isSupport==true){
+            SPUtils.putString(AppConfig.ONIDSAVALID, oaid);
+        }else {
+            String deviceUUID = DeviceUtil.getDeviceUniqueID(activity);
+            SPUtils.putString(AppConfig.ONIDSAVALID, deviceUUID);
+        }
     }
+
 
 
     private void getLocation(Activity context) {
@@ -179,7 +188,7 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
                 //getFeatureName 街道
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("(latitude:").append(latitude).append(",").append("longitude:").append(longitude).append(")");
+                stringBuilder.append("'"+latitude).append(",").append(longitude).append("'");
                 String s = stringBuilder.toString();
                 SPUtils.putString(AppConfig.LOCATION, s);
                 Log.d("print", "onCreate:117:   " + latitude + "   " + longitude);

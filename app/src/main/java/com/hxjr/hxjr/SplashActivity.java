@@ -70,14 +70,17 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     private void init() {
 
-        SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
 
+
+        SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
         SplashActivity splashActivity = new SplashActivity(new DoGet(), SplashActivity.this);
 
         splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);
+
+
     }
 
 
