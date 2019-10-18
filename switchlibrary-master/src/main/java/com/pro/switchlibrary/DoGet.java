@@ -32,7 +32,6 @@ public class DoGet {
     int BLOG_INDEX = 0; //市场手动输入的博客地址下标
 
     int CACHE_CHECKVERSION_INDEX = 0;
-    private String onIdsAvalid;
     private String location;
 
     private String uuid;
@@ -42,7 +41,7 @@ public class DoGet {
         macAddress = DeviceUtil.getMACAddress();
         JsonEntity data = SPUtils.getData(AppConfig.CHECKVERSION, JsonEntity.class);
 
-        onIdsAvalid = SPUtils.getString(AppConfig.ONIDSAVALID);
+        String onIdsAvalid = SPUtils.getString(AppConfig.ONIDSAVALID);
         location = SPUtils.getString(AppConfig.LOCATION);
         String deviceUUID = DeviceUtil.getDeviceUniqueID(context);
 
@@ -56,7 +55,7 @@ public class DoGet {
                 + "位置:" + SPUtils.getString(AppConfig.LOCATION)
                 + "MAC:" + DeviceUtil.getMACAddress(), Toast.LENGTH_SHORT).show();
 
-        Log.d("print", "startRun:40:  "+onIdsAvalid+"位置"+location+"MAC:"+macAddress);
+        Log.d("print", "startRun:40:  "+uuid+"位置"+location+"MAC:"+macAddress);
 
 
         if (CHECKVERSION_URL_LIST.length > 0) {
