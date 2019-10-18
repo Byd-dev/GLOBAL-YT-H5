@@ -383,7 +383,7 @@ public class OWebActivity extends BaseActivity {
                 //getFeatureName 街道
 
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append("'"+latitude).append(",").append(longitude).append("'");
+                stringBuilder.append(latitude).append(",").append(longitude);
                 String s = stringBuilder.toString();
                 SPUtils.putString(AppConfig.LOCATION, s);
                 Log.d("print", "onCreate:117:   " + latitude + "   " + longitude);
