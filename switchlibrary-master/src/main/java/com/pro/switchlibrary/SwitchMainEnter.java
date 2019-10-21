@@ -111,7 +111,7 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
 
     @Override
     public void getOaid(boolean isSupport,String oaid) {
-        Log.d("print", "getOaid:115:  "+isSupport);
+       // Log.d("print", "getOaid:115:  "+isSupport);
         if (isSupport==true){
             SPUtils.putString(AppConfig.ONIDSAVALID, oaid);
         }else {

@@ -1153,7 +1153,7 @@ public class DeviceUtil implements IIdentifierListener {
     @Override
     public void OnSupport(boolean isSupport, IdSupplier _supplier) {
 
-        Log.d("print", "OnSupport:1164:  " + isSupport);
+        //Log.d("print", "OnSupport:1164:  " + isSupport);
         if (_supplier == null) {
             return;
         }

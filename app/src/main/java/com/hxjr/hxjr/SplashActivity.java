@@ -53,6 +53,8 @@ public class SplashActivity extends Activity implements OnResultBack {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
 
         initPermission();
 
@@ -70,11 +72,7 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     private void init() {
 
-
-
         SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
         SplashActivity splashActivity = new SplashActivity(new DoGet(), SplashActivity.this);
 
@@ -229,6 +227,7 @@ public class SplashActivity extends Activity implements OnResultBack {
             openMiuiAppDetDialog.show();
     }
 
+    int count=1;
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -249,8 +248,12 @@ public class SplashActivity extends Activity implements OnResultBack {
                 init();
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
-                init();
-               // openAppDetails();
+                //只调用一次
+                if (count==1){
+                    init();
+                    count++;
+                }
+                //openAppDetails();
             }
         }
     }
@@ -281,6 +284,7 @@ public class SplashActivity extends Activity implements OnResultBack {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // finish();
+                //init();
             }
         });
         if (null == openAppDetDialog)
