@@ -2,6 +2,8 @@ package com.pro.switchlibrary;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -59,6 +61,20 @@ public class AppJs {
     }
 
     @JavascriptInterface
+    public void openWeChat(){
+        try {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setComponent(cmp);
+            this.activity.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this.activity, "检测到您手机没有安装微信,请安装后使用该功能", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @JavascriptInterface
     public void hello(String msg) {
         Toast.makeText(activity, "调用了方法 hello", Toast.LENGTH_SHORT).show();
 
@@ -92,6 +108,8 @@ public class AppJs {
         activity.startActivity(intent);
     }
 
+
+    //指纹识别
     @JavascriptInterface
     public boolean TouchIDSupport() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
