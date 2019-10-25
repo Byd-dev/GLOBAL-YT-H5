@@ -89,7 +89,6 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     @Override
     public void onResult(boolean result, com.pro.switchlibrary.JsonEntity jsonEntity) {
-        Log.d("print", "onResult:426:  " + result + "--" + jsonEntity);
         if (result == true) {
             SwitchMainEnter.getInstance().goToWeb(activity, jsonEntity.getUrl(), null);
             activity.finish();

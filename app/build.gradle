@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.fcglibrary.library"
+        applicationId "com.f2shunfa.futures"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -14,22 +14,22 @@ android {
 
         manifestPlaceholders = [
                 JPUSH_PKGNAME     : applicationId,
-                JPUSH_APPKEY      : "87ca4b02ae2b74a5ce06972e", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY      : "6ec27d928a7ffbffdf7a6b67", //JPush 上注册的包名对应的 Appkey.
                 JPUSH_CHANNEL     : "developer-default", //暂时填写默认值即可.
-                UMENG_APPKEY_VALUE: "5becd904f1f556f0f9000133",//友盟统计
+                UMENG_APPKEY_VALUE: "5d9585de570df362db000dda",//友盟统计
 
         ]
 
 
         buildConfigField "String", "AK", '"AtGlf0AeZaZGVWH9iwFKboyp"'//百度AI AK
         buildConfigField "String", "SK", '"Fiq4CgzCxeKzal8VKAxj7DgbzAXoKVkH"'//百度AI SK
-        buildConfigField "String", "WEB_URL", '"https://fk.7hno1.com/"'//马甲包地址
-        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"http://10.28.74.89:8080"}'
+        buildConfigField "String", "WEB_URL", '"https://sf.df7futures.com/"'//马甲包地址
+        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.ios002.com","https://api.ios003.com"}'
        // buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"http://10.28.74.89:8080", "https://api.zjschjy.com"}'
 //开关地址
-        buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"http://blog.sina.com.cn/s/blog_166dde1070102y0m5.html", "https://blog.csdn.net/nikiazhang/article/details/82828263"}'
+        buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"http://blog.sina.com.cn/s/blog_68af79e70102z8zg.html", "https://blog.csdn.net/skr88_skr772/article/details/95217478"}'
 //博客地址
-        buildConfigField "String", "STAY_UM_KEY", '"5becd904f1f556f0f9000133"'//友盟统计的 KEY
+        buildConfigField "String", "STAY_UM_KEY", '"5d9585de570df362db000dda"'//友盟统计的 KEY
 
 
         productFlavors {
@@ -53,6 +53,9 @@ android {
             }
             xiaoshichang {
                 buildConfigField "String", "QUDAO", '"wzgl"'
+            }
+            google {
+                buildConfigField "String", "QUDAO", '"SFQHgp"'
             }
         }
 
