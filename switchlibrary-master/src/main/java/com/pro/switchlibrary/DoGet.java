@@ -87,7 +87,6 @@ public class DoGet {
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
                     }
-
                     @Override
                     public void onSuccess(com.lzy.okgo.model.Response<String> response) {
 
