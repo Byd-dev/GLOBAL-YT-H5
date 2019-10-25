@@ -39,4 +39,6 @@ public class DoSwitch implements OnResultBack {
             activity.finish();
         }
     }
+
+
 }

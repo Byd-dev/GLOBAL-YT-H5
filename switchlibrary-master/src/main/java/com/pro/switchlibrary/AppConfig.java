@@ -17,6 +17,7 @@ public class AppConfig {
     public  static  final  String PARAM_UUID="uuid";
     public  static  final  String PARAM_LOCATION="location";
 
+    public  static  final  String KEY_SUPPORT_DISCERN="discern";
 
 
 

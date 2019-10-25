@@ -63,11 +63,16 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
         OCR.getInstance(context).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
             @Override
             public void onResult(AccessToken accessToken) {
+                Log.d("print", "onResult:66:  "+accessToken);
+                SPUtils.putString(AppConfig.KEY_SUPPORT_DISCERN,"true");
 
             }
 
             @Override
             public void onError(OCRError ocrError) {
+                Log.d("print", "onError:71:  "+ocrError);
+                SPUtils.putString(AppConfig.KEY_SUPPORT_DISCERN,"false");
+
             }
         }, context, AK, SK);
 

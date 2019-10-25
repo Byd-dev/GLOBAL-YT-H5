@@ -36,8 +36,6 @@ public class AppJs {
     }
 
 
-
-
     /**
      * 打开Android手机应用市场，让用户对app进行下载
      *
@@ -61,7 +59,7 @@ public class AppJs {
     }
 
     @JavascriptInterface
-    public void openWeChat(){
+    public void openWeChat() {
         try {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
@@ -129,22 +127,18 @@ public class AppJs {
 
     private void goToCameraActivity(String value) {
         if (value.equals("front")) {
-
             Intent intent = new Intent(activity, CameraActivity.class);
             intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                     FileUtil.getSaveFile(activity).getAbsolutePath());
             intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_FRONT);
-
             activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
         } else if (value.equals("back")) {
-
             Intent intent = new Intent(activity, CameraActivity.class);
             intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                     FileUtil.getSaveFile(activity).getAbsolutePath());
             intent.putExtra(CameraActivity.KEY_CONTENT_TYPE, CameraActivity.CONTENT_TYPE_ID_CARD_BACK);
             activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
         } else if (value.equals("bank")) {
-
             Intent intent = new Intent(activity, CameraActivity.class);
             intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                     FileUtil.getSaveFile(activity).getAbsolutePath());
@@ -154,9 +148,20 @@ public class AppJs {
         }
     }
 
+    @JavascriptInterface
+    public String isSupportDiscern() {
+        String isSupport = SPUtils.getString(AppConfig.KEY_SUPPORT_DISCERN);
+        if (isSupport.equals("false")) {
+            return "false";
+        } else {
+            return "true";
+        }
+    }
+
 
     @JavascriptInterface
     public void doDiscern(String value) {
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (DeviceUtil.isAllGranted(activity)) {
@@ -176,15 +181,10 @@ public class AppJs {
                                 Manifest.permission.READ_EXTERNAL_STORAGE,*/
                                 Manifest.permission.CAMERA,
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE
-
                         },
                         AppConfig.MY_PERMISSION_REQUEST_CODE);
-
             }
-
-
         }
-
     }
 
 

@@ -8,6 +8,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -36,8 +40,13 @@ public class DoGet {
 
     private String uuid;
 
+
     //Aaron
     public void startRun(Activity context, final OnResultBack onResultBack, final String[] CHECKVERSION_URL_LIST, final String[] BLOG_URL_LIST, final String channel) {
+
+
+
+
         macAddress = DeviceUtil.getMACAddress();
         JsonEntity data = SPUtils.getData(AppConfig.CHECKVERSION, JsonEntity.class);
 
@@ -45,17 +54,17 @@ public class DoGet {
         location = SPUtils.getString(AppConfig.LOCATION);
         String deviceUUID = DeviceUtil.getDeviceUniqueID(context);
 
-        if (onIdsAvalid.equals("")){
-            uuid=deviceUUID;
-        }else {
-            uuid=onIdsAvalid;
+        if (onIdsAvalid.equals("")) {
+            uuid = deviceUUID;
+        } else {
+            uuid = onIdsAvalid;
         }
 
         Toast.makeText(context, "UUID:" + uuid
                 + "位置:" + SPUtils.getString(AppConfig.LOCATION)
                 + "MAC:" + DeviceUtil.getMACAddress(), Toast.LENGTH_SHORT).show();
 
-        Log.d("print", "startRun:40:  "+uuid+"位置"+location+"MAC:"+macAddress);
+        Log.d("print", "startRun:40:  " + uuid + "位置" + location + "MAC:" + macAddress);
 
 
         if (CHECKVERSION_URL_LIST.length > 0) {
@@ -80,13 +89,14 @@ public class DoGet {
                 .tag("url1")
                 .params(AppConfig.PARAM_NAME, channel)
                 .params(AppConfig.PARAM_MAC, macAddress)
-                .params(AppConfig.PARAM_UUID,uuid)
-                .params(AppConfig.PARAM_LOCATION,location)
+                .params(AppConfig.PARAM_UUID, uuid)
+                .params(AppConfig.PARAM_LOCATION, location)
                 .execute(new StringCallback() {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
                     }
+
                     @Override
                     public void onSuccess(com.lzy.okgo.model.Response<String> response) {
 
@@ -188,8 +198,8 @@ public class DoGet {
                 .tag("url1")
                 .params(AppConfig.PARAM_NAME, channel)
                 .params(AppConfig.PARAM_MAC, macAddress)
-                .params(AppConfig.PARAM_UUID,uuid)
-                .params(AppConfig.PARAM_LOCATION,location)
+                .params(AppConfig.PARAM_UUID, uuid)
+                .params(AppConfig.PARAM_LOCATION, location)
                 .execute(new StringCallback() {
 
 
@@ -243,8 +253,8 @@ public class DoGet {
                 .tag("url1")
                 .params(AppConfig.PARAM_NAME, channel)
                 .params(AppConfig.PARAM_MAC, macAddress)
-                .params(AppConfig.PARAM_UUID,uuid)
-                .params(AppConfig.PARAM_LOCATION,location)
+                .params(AppConfig.PARAM_UUID, uuid)
+                .params(AppConfig.PARAM_LOCATION, location)
                 .execute(new StringCallback() {
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
