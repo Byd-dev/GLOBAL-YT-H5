@@ -117,9 +117,36 @@ public class OWebActivity extends BaseActivity {
             if (!TextUtils.isEmpty(url)) {
                 builder.append(url);
             }
-
             if (params != null && !params.isEmpty()) {
-                builder.append("?");
+                if (url.contains("?")){
+                    builder.append("&");
+                    for (Map.Entry<String, Object> entry : params.entrySet()) {
+                        if (entry.getValue() != null) {
+                            builder.append(entry.getKey());
+                            builder.append('=');
+                            builder.append(entry.getValue().toString());
+                            builder.append('&');
+                        }
+                    }
+                    if (builder.toString().endsWith("&")) {
+                        builder.deleteCharAt(builder.length() - 1);
+                    }
+                }else {
+                    builder.append("?");
+                    for (Map.Entry<String, Object> entry : params.entrySet()) {
+                        if (entry.getValue() != null) {
+                            builder.append(entry.getKey());
+                            builder.append('=');
+                            builder.append(entry.getValue().toString());
+                            builder.append('&');
+                        }
+                    }
+                    if (builder.toString().endsWith("&")) {
+                        builder.deleteCharAt(builder.length() - 1);
+                    }
+                }
+
+             /*   builder.append("?");
                 for (Map.Entry<String, Object> entry : params.entrySet()) {
                     if (entry.getValue() != null) {
                         builder.append(entry.getKey());
@@ -130,7 +157,7 @@ public class OWebActivity extends BaseActivity {
                 }
                 if (builder.toString().endsWith("&")) {
                     builder.deleteCharAt(builder.length() - 1);
-                }
+                }*/
             }
             return builder.toString();
         }
@@ -140,6 +167,7 @@ public class OWebActivity extends BaseActivity {
     private static final String TAG = "WebView";
 
     private static final String KEY_TITLE = "title";
+
     private static final String KEY_URL = "url";
     private static final String KEY_HAS_SERVICE = "has_service";
     private static final String KEY_BACKGROUND_COLOR = "background_color";
@@ -468,6 +496,7 @@ public class OWebActivity extends BaseActivity {
                 mWebView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
                 return;
             }
+            Log.d(TAG, "processIntent:最终地址:  " + mUrl);
             mWebView.loadUrl(mUrl);
         }
     }
@@ -666,11 +695,18 @@ public class OWebActivity extends BaseActivity {
 
     public void openUrlNotitle(Context context, String H5url, String title) {
 
+        String performance = DeviceUtil.isPerformance(context);
+
 
         isProgress = false;
         if (context != null) {
+            String url = new UrlBuilder()
+                    .url(H5url)
+                    .put("lv", performance)
+                    .toUrl();
+
             Intent intent = new Intent(context, OWebActivity.class);
-            intent.putExtra(KEY_URL, H5url);
+            intent.putExtra(KEY_URL, url);
             intent.putExtra(KEY_TITLE, title);
             intent.putExtra(KEY_HAS_TITLE, false);
             openWeb(context, intent);
