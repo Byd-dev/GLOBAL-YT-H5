@@ -26,21 +26,21 @@ import com.pro.switchlibrary.SwitchMainEnter;
 
 public class SplashActivity extends Activity implements OnResultBack {
 
-    private Activity activity;
-
-    private DoGet doGet;
-    private static final int MY_PERMISSION_REQUEST_CODE = 10000;
-
     //检测MIUI
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
 
+    private static final int MY_PERMISSION_REQUEST_CODE = 10000;
+
+    private Activity activity;
+
+    private DoGet doGet;
+
     //这个要有 不然会报 没有无参方法的bug
     public SplashActivity() {
 
     }
-
 
     public SplashActivity(DoGet doGet, Activity activity) {
         this.doGet = doGet;
@@ -77,13 +77,10 @@ public class SplashActivity extends Activity implements OnResultBack {
 
         splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);
 
-
     }
-
 
     public void getSwitch(final String[] CHECKVERSION_URL_LIST, final String[] BLOG_URL_LIST, final String channel) {
         doGet.startRun(activity, SplashActivity.this, CHECKVERSION_URL_LIST, BLOG_URL_LIST, channel);
-
     }
 
     @Override

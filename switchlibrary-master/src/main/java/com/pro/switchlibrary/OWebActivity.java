@@ -30,6 +30,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
@@ -551,9 +552,37 @@ public class OWebActivity extends BaseActivity {
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-                super.onReceivedSslError(view, handler, error);
-                Log.d("print", "onReceivedSslError:229:   ");
+                final SslErrorHandler mHandler ;
+                mHandler= handler;
+                AlertDialog.Builder builder = new AlertDialog.Builder(OWebActivity.this);
+                builder.setMessage("ssl证书验证失败");
+                builder.setPositiveButton("继续", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mHandler.proceed();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mHandler.cancel();
+                    }
+                });
+                builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                            mHandler.cancel();
+                            dialog.dismiss();
+                            return true;
+                        }
+                        return false;
+                    }
+
+
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
 
             @Override
