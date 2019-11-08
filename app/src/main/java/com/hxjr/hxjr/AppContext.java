@@ -28,10 +28,9 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.OkHttpClient;
 
 public class AppContext extends MultiDexApplication {
+    private static AppContext appContext;
 
-    private static  AppContext appContext;
-
-    public static AppContext getInstance(){
+    public static AppContext getInstance() {
         return appContext;
     }
 
@@ -44,24 +43,18 @@ public class AppContext extends MultiDexApplication {
     }
 
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-        appContext=this;
-
-
-
-
+        appContext = this;
         UMConfigure.init(this, BuildConfig.STAY_UM_KEY, null, UMConfigure.DEVICE_TYPE_PHONE, null);
-
-
 
         mContext = this;
 
 
         initOkGo();
-
 
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -150,9 +143,6 @@ public class AppContext extends MultiDexApplication {
     }
 
 
-
-
-
     private class SafeTrustManager implements X509TrustManager {
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -189,6 +179,8 @@ public class AppContext extends MultiDexApplication {
             return true;
         }
     }
+
+
 
 
 }

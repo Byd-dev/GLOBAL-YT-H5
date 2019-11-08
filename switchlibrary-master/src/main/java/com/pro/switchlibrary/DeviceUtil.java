@@ -1344,4 +1344,22 @@ public class DeviceUtil implements IIdentifierListener {
         return sb.toString().toUpperCase(Locale.CHINA);
     }
 
+
+
+    public static File initCacheDir(Context context, String dirPath) {
+        File cacheDir;
+        if (!isSDCardAvailable()) {
+            cacheDir = context.getDir(dirPath, Context.MODE_PRIVATE);
+        } else {
+            if (context.getExternalCacheDir() == null) {
+                cacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + context.getPackageName(), dirPath);
+            } else {
+                cacheDir = new File(context.getExternalCacheDir(), dirPath);
+            }
+            if (!cacheDir.exists()) {
+                cacheDir.mkdirs();
+            }
+        }
+        return cacheDir;
+    }
 }

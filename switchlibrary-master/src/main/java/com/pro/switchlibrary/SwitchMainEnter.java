@@ -25,6 +25,7 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.bun.miitmdid.core.JLibrary;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
 
     private static SwitchMainEnter instance;
     private Activity activity;
+    public static final String LOG_CACHE_DIR_NAME = "log";
 
 
     public static SwitchMainEnter getInstance() {
@@ -46,10 +48,16 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
         return instance;
     }
 
+    public  File getLogCacheDir() {
+        return DeviceUtil.initCacheDir(activity, LOG_CACHE_DIR_NAME);
+    }
+
+
     public void initOCR(Activity context, String AK, String SK) {
         this.activity=context;
         SPUtils.init(context);
         JLibrary.InitEntry(context);
+        initCrashHandler();
 
         getLocation(context);
 
@@ -236,5 +244,14 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
         }
     };
 
+
+    /**
+     * 上架项目时可以打开
+     * 异常处理
+     */
+    private void initCrashHandler() {
+        CrashHandler crashHandler = CrashHandler.getInstance(getLogCacheDir().getAbsolutePath());
+        crashHandler.init(activity.getApplication());
+    }
 }
 
