@@ -458,7 +458,7 @@ public class OWebActivity extends BaseActivity {
 
     @Override
     protected int setContentLayout() {
-        return R.layout.activity_main_web;
+        return R.layout.webview;
     }
 
     private static void openWeb(Context context, Intent intent) {
