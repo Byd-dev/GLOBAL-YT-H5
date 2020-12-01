@@ -30,7 +30,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
@@ -119,7 +118,7 @@ public class OWebActivity extends BaseActivity {
                 builder.append(url);
             }
             if (params != null && !params.isEmpty()) {
-                if (url.contains("?")){
+                if (url.contains("?")) {
                     builder.append("&");
                     for (Map.Entry<String, Object> entry : params.entrySet()) {
                         if (entry.getValue() != null) {
@@ -132,7 +131,7 @@ public class OWebActivity extends BaseActivity {
                     if (builder.toString().endsWith("&")) {
                         builder.deleteCharAt(builder.length() - 1);
                     }
-                }else {
+                } else {
                     builder.append("?");
                     for (Map.Entry<String, Object> entry : params.entrySet()) {
                         if (entry.getValue() != null) {
@@ -550,40 +549,51 @@ public class OWebActivity extends BaseActivity {
                 mWebView.setVisibility(View.INVISIBLE);
             }
 
-            @Override
+           /* @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                final SslErrorHandler mHandler ;
-                mHandler= handler;
-                AlertDialog.Builder builder = new AlertDialog.Builder(OWebActivity.this);
-                builder.setMessage("ssl证书验证失败");
-                builder.setPositiveButton("继续", new DialogInterface.OnClickListener() {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(OWebActivity.this);
+                String message = "SSL Certificate error.";
+                switch (error.getPrimaryError()) {
+                    case SslError.SSL_UNTRUSTED:
+                        message = "The certificate authority is not trusted.";
+                        break;
+                    case SslError.SSL_EXPIRED:
+                        message = "The certificate has expired.";
+                        break;
+                    case SslError.SSL_IDMISMATCH:
+                        message = "The certificate Hostname mismatch.";
+                        break;
+                    case SslError.SSL_NOTYETVALID:
+                        message = "The certificate is not yet valid.";
+                        break;
+                    case SslError.SSL_DATE_INVALID:
+                        message = "The date of the certificate is invalid";
+                        break;
+                    case SslError.SSL_INVALID:
+                    default:
+                        message = "A generic error occurred";
+                        break;
+                }
+                message += " Do you want to continue anyway?";
+
+                builder.setTitle("SSL Certificate Error");
+                builder.setMessage(message);
+
+                builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mHandler.proceed();
+                        handler.proceed();
                     }
                 });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mHandler.cancel();
+                        handler.cancel();
                     }
                 });
-                builder.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                    @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                        if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                            mHandler.cancel();
-                            dialog.dismiss();
-                            return true;
-                        }
-                        return false;
-                    }
-
-
-                });
-                AlertDialog dialog = builder.create();
+                final AlertDialog dialog = builder.create();
                 dialog.show();
-            }
+            }*/
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -864,7 +874,13 @@ public class OWebActivity extends BaseActivity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setAllowFileAccess(true);
         settings.setGeolocationEnabled(true);
-
+        settings.setUseWideViewPort(true);
+        settings.setDefaultTextEncodingName("UTF-8");
+        settings.setAllowContentAccess(true); // 是否可访问Content Provider的资源，默认值 true
+        // 是否允许通过file url加载的Javascript读取本地文件，默认值 false
+        settings.setAllowFileAccessFromFileURLs(false);
+        // 是否允许通过file url加载的Javascript读取全部资源(包括文件,http,https)，默认值 false
+        settings.setAllowUniversalAccessFromFileURLs(false);
         //设置自适应
         settings.setLoadWithOverviewMode(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);

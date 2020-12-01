@@ -14,12 +14,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.pro.switchlibrary.DoGet;
 import com.pro.switchlibrary.JumpPermissionManagement;
+import com.pro.switchlibrary.OWebActivity;
 import com.pro.switchlibrary.OnResultBack;
 import com.pro.switchlibrary.SwitchMainEnter;
 
@@ -69,12 +72,17 @@ public class SplashActivity extends Activity implements OnResultBack {
 
 
     private void init() {
+        //注意要申请相机权限
+        OWebActivity.getInstance().openUrlNotitle(SplashActivity.this, BuildConfig.WEB_URL, null);
+        SplashActivity.this.finish();
 
-        SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
+
+       /* SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
 
         SplashActivity splashActivity = new SplashActivity(new DoGet(), SplashActivity.this);
 
-        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);
+        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);*/
+
 
     }
 
@@ -84,15 +92,16 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     @Override
     public void onResult(boolean result, com.pro.switchlibrary.JsonEntity jsonEntity) {
-        if (result == true) {
+        Log.d("print", "onResult:开关返回:  " + result);
+        if (result) {
             SwitchMainEnter.getInstance().goToWeb(activity, jsonEntity.getUrl(), null);
             activity.finish();
-        } else if (result == false) {
+        } else {
+            //GuideActivity.enter(activity);
             SwitchMainEnter.getInstance().goToWeb(activity, BuildConfig.WEB_URL, null);
             activity.finish();
         }
     }
-
 
 
     public void initPermission() {
@@ -113,11 +122,11 @@ public class SplashActivity extends Activity implements OnResultBack {
                         this,
                         new String[]{
                                 /*Manifest.permission.READ_PHONE_STATE,*/
-                                Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                /* Manifest.permission.CAMERA,
-                                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                                 Manifest.permission.WRITE_EXTERNAL_STORAGE*/
+                                /*Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION,*/
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
                         },
                         MY_PERMISSION_REQUEST_CODE
                 );
@@ -143,11 +152,11 @@ public class SplashActivity extends Activity implements OnResultBack {
         boolean isAllGranted = checkPermissionAllGranted(
                 new String[]{
                         /*Manifest.permission.READ_PHONE_STATE,*/
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        /* Manifest.permission.CAMERA,
-                         Manifest.permission.READ_EXTERNAL_STORAGE,
-                         Manifest.permission.WRITE_EXTERNAL_STORAGE*/
+                       /* Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,*/
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
                 }
         );
 
@@ -166,6 +175,7 @@ public class SplashActivity extends Activity implements OnResultBack {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public boolean initMiuiPermission() {
         AppOpsManager appOpsManager = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
         int locationOp = appOpsManager.checkOp(AppOpsManager.OPSTR_FINE_LOCATION, Binder.getCallingUid(), getPackageName());
@@ -222,7 +232,8 @@ public class SplashActivity extends Activity implements OnResultBack {
             openMiuiAppDetDialog.show();
     }
 
-    int count=1;
+    int count = 1;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -244,7 +255,7 @@ public class SplashActivity extends Activity implements OnResultBack {
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
                 //只调用一次
-                if (count==1){
+                if (count == 1) {
                     init();
                     count++;
                 }

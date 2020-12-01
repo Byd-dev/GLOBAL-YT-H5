@@ -5,15 +5,7 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.cache.CacheEntity;
-import com.lzy.okgo.cache.CacheMode;
-import com.lzy.okgo.cookie.CookieJarImpl;
-import com.lzy.okgo.cookie.store.SPCookieStore;
-import com.lzy.okgo.https.HttpsUtils;
-import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
-import com.lzy.okgo.model.HttpHeaders;
-import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.security.cert.CertificateException;
@@ -24,6 +16,15 @@ import java.util.logging.Level;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.cookie.CookieJarImpl;
+import com.lzy.okgo.cookie.store.SPCookieStore;
+import com.lzy.okgo.https.HttpsUtils;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.HttpParams;
 
 import okhttp3.OkHttpClient;
 
@@ -58,11 +59,9 @@ public class AppContext extends MultiDexApplication {
 
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        if (Build.VERSION.SDK_INT >= 18) {
-
-            builder.detectFileUriExposure();
-        }
         StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
+
 
     }
 
@@ -112,8 +111,8 @@ public class AppContext extends MultiDexApplication {
         //builder.cookieJar(new CookieJarImpl(new DBCookieStore(this)));              //使用数据库保持cookie，如果cookie不过期，则一直有效
         // builder.cookieJar(new CookieJarImpl(new MemoryCookieStore()));            //使用内存保持cookie，app退出后，cookie消失
 
-      /*  sCookiejarimpl=new CookieJarImpl(new MemoryCookieStore());
-        builder.cookieJar(sCookiejarimpl);*/
+        CookieJarImpl sCookiejarimpl=new CookieJarImpl(new MemoryCookieStore());
+        builder.cookieJar(sCookiejarimpl);
 
         //builder.cookieJar(new com.ltqh.qh.operation.store.CookieJarImpl(new com.ltqh.qh.operation.store.MemoryCookieStore()));
 

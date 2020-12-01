@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.f2shunfa.futures"
+        applicationId "com.bsjzx.coin"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "1"
         multiDexEnabled true
@@ -23,39 +23,41 @@ android {
 
         buildConfigField "String", "AK", '"AtGlf0AeZaZGVWH9iwFKboyp"'//百度AI AK
         buildConfigField "String", "SK", '"Fiq4CgzCxeKzal8VKAxj7DgbzAXoKVkH"'//百度AI SK
-        buildConfigField "String", "WEB_URL", '"https://sf.df7futures.com/"'//马甲包地址
-        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.ios002.com","https://api.ios003.com"}'
-       // buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"http://10.28.74.89:8080", "https://api.zjschjy.com"}'
+        buildConfigField "String", "WEB_URL", '"https://np.nnswe.com/?f=syandroidGF"'//马甲包地址
+        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.rbztpx.com", "https://api.qhytedc.com"}'
 //开关地址
-        buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"http://blog.sina.com.cn/s/blog_68af79e70102z8zg.html", "https://blog.csdn.net/skr88_skr772/article/details/95217478"}'
+        buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"https://blog.csdn.net/skr88_skr772/article/details/95217478","http://yujianguangxx.blog.sohu.com"}'
 //博客地址
-        buildConfigField "String", "STAY_UM_KEY", '"5d9585de570df362db000dda"'//友盟统计的 KEY
+        buildConfigField "String", "STAY_UM_KEY", '"5becd904f1f556f0f9000133"'//友盟统计的 KEY
 
 
         productFlavors {
+            universal {
+                buildConfigField "String", "QUDAO", '"gffkqh"'
+            }
             qh360 {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             yingyongbao {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             huawei {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             xiaomi {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"BJGJSJYxiaomi"'
             }
             oppo {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             meizu {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             xiaoshichang {
-                buildConfigField "String", "QUDAO", '"wzgl"'
+                buildConfigField "String", "QUDAO", '"qh"'
             }
             google {
-                buildConfigField "String", "QUDAO", '"SFQHgp"'
+                buildConfigField "String", "QUDAO", '"zzqh"'
             }
         }
 
@@ -98,6 +100,7 @@ dependencies {
     //okgo
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.lzy.net:okserver:1.1.3'
+
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     //极光

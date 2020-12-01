@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.ValueCallback;
@@ -127,6 +128,17 @@ public class WebFileUploader {
         i.setType(acceptType);
         activity.startActivityForResult(i, REQUEST_SELECT_FILE);
     }
+   /* private void takePhoto(String cameraPhotoPath) {
+        File cameraPhoto = new File(cameraPhotoPath);
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri photoUri = FileProvider.getUriForFile(
+                activity,
+                activity.getPackageName() + ".fileprovider",
+                cameraPhoto);
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        activity.startActivityForResult(takePhotoIntent, REQUEST_CAMERA);
+    }*/
+
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

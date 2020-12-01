@@ -32,7 +32,7 @@ import java.util.List;
 import static android.content.Context.LOCATION_SERVICE;
 import static com.pro.switchlibrary.AppConfig.MY_PERMISSION_REQUEST_CODE;
 
-public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
+public class SwitchMainEnter  implements DeviceUtil.AppIdsUpdater {
 
     private static SwitchMainEnter instance;
     private Activity activity;
@@ -47,6 +47,8 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
         }
         return instance;
     }
+
+
 
     public  File getLogCacheDir() {
         return DeviceUtil.initCacheDir(activity, LOG_CACHE_DIR_NAME);
@@ -86,6 +88,8 @@ public class SwitchMainEnter implements DeviceUtil.AppIdsUpdater {
 
 
     }
+
+
 
 
     public void goToWeb(final Activity context, final String H5url, String title) {

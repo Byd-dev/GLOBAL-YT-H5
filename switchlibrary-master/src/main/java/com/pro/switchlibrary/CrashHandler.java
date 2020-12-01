@@ -69,7 +69,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         // mContext.startActivity(intent);
         // Looper.loop();
         // }
-        // }.start();
+        // }.bjgjs_bg();
     }
 
     /**
