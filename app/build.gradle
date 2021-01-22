@@ -23,8 +23,8 @@ android {
 
         buildConfigField "String", "AK", '"AtGlf0AeZaZGVWH9iwFKboyp"'//百度AI AK
         buildConfigField "String", "SK", '"Fiq4CgzCxeKzal8VKAxj7DgbzAXoKVkH"'//百度AI SK
-        buildConfigField "String", "WEB_URL", '"https://np.nnswe.com/?f=syandroidGF"'//马甲包地址
-        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.rbztpx.com", "https://api.qhytedc.com"}'
+        buildConfigField "String", "WEB_URL", '"https://sd.huasuanpuzi.com/"'//马甲包地址
+        buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.hhquyw.com", "https://api.zzcdo.com"}'
 //开关地址
         buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"https://blog.csdn.net/skr88_skr772/article/details/95217478","http://yujianguangxx.blog.sohu.com"}'
 //博客地址
@@ -33,7 +33,7 @@ android {
 
         productFlavors {
             universal {
-                buildConfigField "String", "QUDAO", '"gffkqh"'
+                buildConfigField "String", "QUDAO", '"AZyfqh"'
             }
             qh360 {
                 buildConfigField "String", "QUDAO", '"qh"'
