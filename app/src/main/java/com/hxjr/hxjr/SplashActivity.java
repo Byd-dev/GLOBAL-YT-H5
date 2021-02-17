@@ -72,15 +72,15 @@ public class SplashActivity extends Activity implements OnResultBack {
 
     private void init() {
         //注意要申请相机权限
-        OWebActivity.getInstance().openUrlNotitle(SplashActivity.this, BuildConfig.WEB_URL, null);
-        SplashActivity.this.finish();
+       /* OWebActivity.getInstance().openUrlNotitle(SplashActivity.this, BuildConfig.WEB_URL, null);
+        SplashActivity.this.finish();*/
 
 
-       /* SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
+        SwitchMainEnter.getInstance().initOCR(this, BuildConfig.AK, BuildConfig.SK);
 
         SplashActivity splashActivity = new SplashActivity(new DoGet(), SplashActivity.this);
 
-        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);*/
+        splashActivity.getSwitch(BuildConfig.CHECKVERSION_URL_LIST, BuildConfig.BLOG_URL_LIST, BuildConfig.QUDAO);
 
 
     }

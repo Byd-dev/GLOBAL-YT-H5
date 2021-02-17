@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.hbpro.hbpro"
+        applicationId "com.huobifb.coin"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -23,7 +23,7 @@ android {
 
         buildConfigField "String", "AK", '"AtGlf0AeZaZGVWH9iwFKboyp"'//百度AI AK
         buildConfigField "String", "SK", '"Fiq4CgzCxeKzal8VKAxj7DgbzAXoKVkH"'//百度AI SK
-        buildConfigField "String", "WEB_URL", '"https://sd.huasuanpuzi.com/?ru=497790819143516160&f= (https://sd.km-cjtw.com/?ru=489487747912826880&f=IOSdfcf)WXQ"'//马甲包地址
+        buildConfigField "String", "WEB_URL", '"https://m.huobi.com"'//马甲包地址
         buildConfigField "String[]", "CHECKVERSION_URL_LIST", 'new String[]{"https://api.hhquyw.com", "https://api.zzcdo.com"}'
 //开关地址
         buildConfigField "String[]", "BLOG_URL_LIST", 'new String[]{"https://blog.csdn.net/skr88_skr772/article/details/95217478","http://yujianguangxx.blog.sohu.com"}'
@@ -33,16 +33,16 @@ android {
 
         productFlavors {
             universal {
-                buildConfigField "String", "QUDAO", '"AZyfqh"'
+                buildConfigField "String", "QUDAO", '"HBFBjl"'
             }
             qh360 {
-                buildConfigField "String", "QUDAO", '"qh"'
+                buildConfigField "String", "QUDAO", '"HBFByyh"'
             }
             yingyongbao {
-                buildConfigField "String", "QUDAO", '"qh"'
+                buildConfigField "String", "QUDAO", '"BSJZXyyb"'
             }
             huawei {
-                buildConfigField "String", "QUDAO", '"qh"'
+                buildConfigField "String", "QUDAO", '"HBFBlx"'
             }
             xiaomi {
                 buildConfigField "String", "QUDAO", '"BJGJSJYxiaomi"'
@@ -51,7 +51,7 @@ android {
                 buildConfigField "String", "QUDAO", '"qh"'
             }
             meizu {
-                buildConfigField "String", "QUDAO", '"qh"'
+                buildConfigField "String", "QUDAO", '"HBFBmz"'
             }
             xiaoshichang {
                 buildConfigField "String", "QUDAO", '"qh"'
